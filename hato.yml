@@ -1,0 +1,51 @@
+# https://github.com/midry3/hato
+
+default:
+  aliases: []
+  nargs: 0
+  checklist: []
+  actions: []
+
+push:
+  nargs: 1
+  aliases:
+    - p
+  checklist:
+    - Updated version?
+    - README is ok?
+  actions:
+    - git pull origin %1
+    - git push origin %1
+
+commit:
+  nargs: 1
+  aliases:
+    - c
+  inform:
+    - git add .
+    - git status
+  checklist:
+    - Checked the stages?
+    - Removed test debug codes?
+    - Are you ok this commit message?
+  actions:
+    - git commit -m %1
+
+volume-detect:
+  aliases:
+    - vd
+  nargs: 1
+  actions:
+    - ffmpeg -i %1 -vn -af volumedetect -f null -
+
+volume-adjust:
+  aliases:
+    - va
+  nargs: 3
+  actions:
+    - ffmpeg -i %1 -af volume=%2dB %3
+
+an:
+  nargs: 2
+  actions:
+    - ffmpeg -i %1 -an %2
